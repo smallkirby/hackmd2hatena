@@ -27,6 +27,8 @@ html {
 /*  ebdbb2: normal */
 /*  c45e5e: impact */
 /*  32302F: background */
+/*  86A886: border */
+/*  f3b82f: title */
 
 /* Sections
    ========================================================================== */
@@ -978,10 +980,23 @@ li.L9 { background: #303030 }
 }
 
 .entry-content .table-of-contents {
+    position: relative;
     padding: 1em 1em 1em 2em;
     margin: 1em 0;
-    border: 1px dashed #ddd;
-    border-color: #ebdbb2;
+    border: 1px dashed #ebdbb2;
+    /* border-color: #ebdbb2; */
+}
+
+.table-of-contents:before{
+  content:"Contents";
+  display: inline-block;
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.table-of-contents li{
+  list-style-type: none;
+  margin-left: 1em;
 }
 
 /* 記事下 */
@@ -1273,7 +1288,7 @@ li.L9 { background: #303030 }
   position: relative;
   margin: 2em 0;
   padding: 0.5em 1em;
-  border: solid 3px #95ccff;
+  border: solid 3px #86A886;
   border-radius: 8px;
 }
 .keywords .btitle {
@@ -1291,6 +1306,7 @@ li.L9 { background: #303030 }
 .keywords p {
   margin: 0;
   padding: 0;
+  color: #f3b82f;
 }
 
 /* footer */
