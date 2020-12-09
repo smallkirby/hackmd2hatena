@@ -32,6 +32,25 @@ html {
 
 /* Sections
    ========================================================================== */
+
+/** Pretty Print **/
+/*
+*/
+pre.prettyprint{
+  display: block;
+  overflow: auto !important;
+  word-wrap: normal;
+  white-space: pre !important;
+  text-overflow: clip !important;
+}
+.prettyprint ol.linenums > li{
+  list-style-type: decimal;
+  border-left:dashed 1px #615b5b;
+  border-width: 0.1rem;
+  padding-left:0.5rem;
+}
+
+
 /**
  * Remove the margin in all browsers (opinionated).
  */
@@ -539,7 +558,7 @@ h5 {
 
 li.L0, li.L1, li.L2, li.L3,
 li.L5, li.L6, li.L7, li.L8 {
-  list-style-type: decimal !important;
+  list-style-type: decimal;
 }
 li.L1,
 li.L3,
@@ -578,6 +597,20 @@ li.L9 { background: #303030 }
     #footer {
         width: 940px;
     }
+}
+
+@media (min-width: 1400px){
+  #container{
+    width: 1400px;
+    margin: 0 auto;
+  }
+  #wrapper{
+    width: 1100px;
+    float: left;
+  }
+  #main{
+    width: 1000px;
+  }
 }
 
 /* 2カラムレイアウト */
@@ -1062,7 +1095,7 @@ li.L9 { background: #303030 }
 
 .comment-content {
     margin: 0 0 .4em 0;
-    word-wrap: break-word;
+    /*word-wrap: break-word;*/
     color: #454545;
     font-size: .85rem;
 }
