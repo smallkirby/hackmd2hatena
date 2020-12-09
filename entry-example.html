@@ -17,6 +17,8 @@
 <p></p>
 <h3>2: 静的解析</h3>
 <h4>問題概要</h4>
+
+<div style="margin-bottom:0; padding-bottom:0; display:inline; font-size:80%; background-color:#3d3939;">static.sh</div>
 <pre class="prettyprint linenums lang-sh">
 $ file ./test
 ./test: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=2bc4d25d187796b44a43cf1001c8a6422eae2bd9, for GNU/Linux 3.2.0, not stripped
@@ -36,6 +38,8 @@ $ checksec --file ./test
 <p></p>
 <h3>3: exploitの方針</h3>
 <p>以下のコードで、 <em>libcbase</em> がleakできる。</p>
+
+<div style="margin-bottom:0; padding-bottom:0; display:inline; font-size:80%; background-color:#3d3939;">test.c</div>
 <pre class="prettyprint linenums lang-c">
 int main(void){
   printf("hello");
@@ -46,6 +50,8 @@ int main(void){
 <p></p>
 <h3>4: exploit</h3>
 <p>なお、本番環境では試していない。</p>
+
+<div style="margin-bottom:0; padding-bottom:0; display:inline; font-size:80%; background-color:#3d3939;">exploit.py</div>
 <pre class="prettyprint linenums lang-py">
 #!/usr/bin/env python
 #encoding: utf-8;

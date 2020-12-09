@@ -37,6 +37,8 @@ html {
 /*
 */
 pre.prettyprint{
+  margin-top: 0; /* for title */
+  padding-top: 0; /* for title */
   display: block;
   overflow: auto !important;
   word-wrap: normal;

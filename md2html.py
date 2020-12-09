@@ -40,6 +40,10 @@ keywords_template = '''
 </div>
 '''
 
+pp_title = '''
+<div style="margin-bottom:0; padding-bottom:0; display:inline; font-size:80%; background-color:#3d3939;">{}</div>
+'''
+
 footer_content = '''
 <p></p><p></p>
 <p></p><p></p>
@@ -85,6 +89,7 @@ class Nirugiri:
     try:
       with open(filename, "r") as f:
         self.ilines = f.readlines()
+      self.filename = filename
       return True
     except(FileNotFoundError):
       print("File not found: "+sys.argv[1])
@@ -134,6 +139,8 @@ class Nirugiri:
           self.inCodeblock = True
           if len(result.groups()[0]) >= 1:
             self.codename = result.groups()[0]
+          if self.codename!=None and len(self.codename)>=1:
+            self.olines.append(pp_title.format(self.codename))
           self.olines.append(codeblock[1].format(genPrettyprintArgs(self.codename)) + "\n")
         else:
           self.inCodeblock = False
@@ -174,7 +181,8 @@ class Nirugiri:
     self.olines.append(footer_content)
 
 
-  def output(self, filename):
+  def output(self):
+    filename = self.filename[:-3] + ".html"
     if os.path.exists(filename):
       print("Error: file already exists: {}".format(filename))
       return False
@@ -202,6 +210,6 @@ if __name__ == "__main__":
   if n.parse() == False:
     exit(0)
 
-  if n.output("output.html") == False:
+  if n.output() == False:
     exit(0)
 
