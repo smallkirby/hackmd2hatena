@@ -1,4 +1,5 @@
 keywords
+realloc, heap, tcache
 
 # イントロ
 
