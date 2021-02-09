@@ -20,12 +20,16 @@ write code here
 *hoge* -> <em>hoge</em>
 ***hoge*** -> <strong><em>hoge</em></strong>
 > hoge -> <blockquote><p>hoge</p></blockquote>
+
+[content](URL) -> <a href=URL>content</a>
 '''
 
 from io import IncrementalNewlineDecoder
 import sys
 import os
 import re
+import argparse
+import html
 
 header_content = '''
 <p><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script></p>
@@ -68,6 +72,16 @@ codeblock = [
   r'^```(.*)' , '<pre class="prettyprint linenums {}">', '</pre>'
 ]
 
+inlinecode = [
+  r'`(.*?)`', '<code>', '</code>'
+]
+
+urlref = [
+  r'\[(.*?)\]\((.*?)\)', '<a href="{}">', '</a>'
+]
+
+hackmd_img = r'^\!\['
+
 def genPrettyprintArgs(filename):
   result = re.findall(r'(.*)\.(.*)', filename)
   if result == []:
@@ -89,6 +103,7 @@ class Nirugiri:
     try:
       with open(filename, "r") as f:
         self.ilines = f.readlines()
+      self.ilines = list(map(html.escape, self.ilines))
       self.filename = filename
       return True
     except(FileNotFoundError):
@@ -149,6 +164,10 @@ class Nirugiri:
         continue
 
       if not self.inCodeblock: # not in codeblock
+        # ignore imgr image
+        if len(re.findall(hackmd_img, l)) > 0:
+          l = ""
+
         # header
         for i, r in enumerate(headers):
           if not self.headerFound:
@@ -171,6 +190,18 @@ class Nirugiri:
             for p in result:
               l = l.replace(p[0], r[1] + p[1] + r[2])
 
+        # inline
+        result = re.findall(inlinecode[0], l)
+        if len(result) > 0:
+          for p in result:
+            l = l.replace('`'+p+'`', inlinecode[1] + p + inlinecode[2])
+
+        # URL ref
+        result = re.findall(urlref[0], l)
+        if len(result) > 0:
+          for p in result:
+            l = l.replace('['+p[0]+']('+p[1]+')', urlref[1].format(p[1]) + p[0] + urlref[2])
+
         # end
         self.olines.append("<p>" + l.rstrip() +"</p>" + "\n")
 
@@ -181,14 +212,14 @@ class Nirugiri:
     self.olines.append(footer_content)
 
 
-  def output(self):
+  def output(self, force):
     filename = self.filename[:-3] + ".html"
-    if os.path.exists(filename):
+    if (not force) and os.path.exists(filename):
       print("Error: file already exists: {}".format(filename))
       return False
     with open(filename, "w") as f:
       f.writelines(self.olines)
-    print("Output: output.html")
+    print("Output: " + filename)
     return True
 
 
@@ -199,17 +230,26 @@ def usage():
   print("Usage: {} <markdown file>".format(sys.argv[0]))
 
 if __name__ == "__main__":
-  if len(sys.argv) != 2:
+  parser = argparse.ArgumentParser()
+  parser.add_argument('mdfile', help='MD file to covert')
+  parser.add_argument('-f', '--force', action='store_true', help='Force overwriting')
+  parser.add_argument('--hackmd', action='store_true', help='Use HackMD syntax')
+  args = parser.parse_args()
+  mdname = args.mdfile
+  force = args.force
+  ishackmd = args.hackmd
+
+  if len(mdname) <= 0:
     usage()
     exit(0)
 
   n = Nirugiri()
-  if n.readfile(sys.argv[1]) == False:
+  if n.readfile(mdname) == False:
     exit(0)
 
   if n.parse() == False:
     exit(0)
 
-  if n.output() == False:
+  if n.output(force) == False:
     exit(0)
 
