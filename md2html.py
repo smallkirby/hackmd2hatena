@@ -98,6 +98,7 @@ class Nirugiri:
     self.rules = [headers]
     self.section_number = 1
     self.now_reference = False
+    self.codename = ""
 
   def readfile(self, filename):
     try:
