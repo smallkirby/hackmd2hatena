@@ -792,9 +792,9 @@ li.L9 {
     font-size: 2.2rem;
     font-family: "Ubuntu Mono", monospace;
     font-style: italic;
-    color: #c45e5e;
+    color: black;
     text-align: center;
-    text-shadow: 0 0 2px red;
+    text-shadow: 0 0 2px black;
 }
 
 #title h1 {
@@ -809,7 +809,7 @@ li.L9 {
     margin: 1em 0 0;
     font-family: "Ubuntu Mono", monospace;
     font-style: italic;
-    color: #c45e5e;
+    color: black;
     text-align: center;
 }
 
@@ -864,7 +864,6 @@ li.L9 {
 .entry-header {
     padding-bottom: 1em;
     margin-bottom: 2em;
-    border-bottom: 1px solid #ddd;
     position: relative;
 }
 
@@ -888,7 +887,7 @@ li.L9 {
 }
 
 .entry-title-link {
-    color: #f3b82f;
+    color: black;
 }
 
 @media (min-width: 992px) {
