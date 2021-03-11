@@ -1,5 +1,5 @@
 # Blog Template and Relative Tools  for HatenaBlog
-自分用に調整されたHackMD to はてなHTMLコンバータ。　　
+自分用に調整されたHackMD to はてなHTMLコンバータ。  
 及びブログエントリとCSS。
 
 ## 機能
