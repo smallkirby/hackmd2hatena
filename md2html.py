@@ -112,7 +112,7 @@ class Nirugiri:
       return False
 
   def handle_reference(self, lines):
-    self.olines.append("<h3>{}: 参考</h3>\n".format(self.section_number))
+    self.olines.append("<h3>{}: References</h3>\n".format(self.section_number))
     a_template = "<p><a href='{}'>{}</a></p>\n"
     for i in range(len(lines)//2):
       title = lines[i*2].rstrip()
@@ -143,7 +143,7 @@ class Nirugiri:
     # content
     for i_line, l in enumerate(self.ilines):
       # check if reference
-      if l.rstrip() == "# 参考":
+      if l.rstrip() == "# References":
         self.now_reference = True
         self.handle_reference(self.ilines[i_line+1:])
         break
