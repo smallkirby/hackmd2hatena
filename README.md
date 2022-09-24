@@ -1,3 +1,5 @@
+# DEPRECATED. MOVE TO [md2hatena-rs](https://github.com/smallkirby/md2hatena-rs)
+
 # Markdown to HTML converter
 Markdown to HTML converter especially for Hatena blog.  
 The only target is me.  
